@@ -1,0 +1,20 @@
+test: course_test.o Student.o Course.o
+        g++ -o test course_test.o Student.o Course.o   # indent must be a tab
+
+# only need to link if course_test.cpp has changed
+course_test: course_test.cpp
+        g++ -c course_test.cpp                         # indent must be a tab
+
+# only compile if Student.h or Student.cpp has changed since last compile
+Student: Student.h Student.cpp
+        g++ -c Student.cpp                             # indent must be a tab
+
+# only compile if Course.h or Course.cpp has changed since last compile
+Course: Course.h Course.cpp
+        g++ -c Course.cpp                              # indent must be a tab
+
+clean:
+        rm -f test course_test.o Student.o Course.o    # indent must be a tab
+
+# same compiler options as for the course makefile
+CPPFLAGS = -std=c++14 -Wall -Wextra -Werror -Wfatal-errors -Wno-s
